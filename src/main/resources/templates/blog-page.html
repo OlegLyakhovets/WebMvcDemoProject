@@ -16,8 +16,11 @@
         <p th:text="${anons}"/>
         <p th:text="${fulltext}"/>
         <p><b>Views: </b> <span th:text="${views}"/></p>
-        <a th:href="'' + ${id} + '/edit'" class="btn btn-warning">Edit</a>
-        <a th:href="'' + ${id} + '/delete'" class="btn btn-warning">Delete</a>
+        <a th:href="'' + ${id} + '/edit'" class="btn btn-warning">Edit</a><br>
+        <form th:action="'/blog/' + ${id} + '/delete'" method="post">
+            <button class="btn btn-warning mt-2" type="submit">Delete</button>
+        </form>
+
     </div>
 </div>
 

@@ -96,6 +96,16 @@ public class BlogController {
         postRepository.save(post);
         return "redirect:/blog";
     }
+
+    @PostMapping("/blog/{id}/delete")
+    public String deletePost(@PathVariable(name = "id") Long id,
+                             @RequestParam (name="name", defaultValue="User")
+                                   String name, Model model){
+        model.addAttribute("name", name);
+        Post post = postRepository.findById(id).orElseThrow();
+        postRepository.delete(post);
+        return "redirect:/blog";
+    }
     @GetMapping("/all")
     public @ResponseBody Iterable<Post> getAll(){
 

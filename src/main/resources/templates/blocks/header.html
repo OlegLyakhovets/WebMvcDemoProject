@@ -1,0 +1,17 @@
+<div th:fragment="header">
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h2 class="display-4 fw-normal">Pricing</h2>
+        <p class="fs-5 text-muted">Quickly build an effective pricing
+            table.</p>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="/">MAIN</a>
+            <a class="p-2 text-dark" href="/blog">Blog</a>
+            <a class="p-2 text-dark" href="/about">About us</a>
+            <a class="p-2 text-dark" href="/blog/add">Add data to database</a>
+        </nav>
+    </div>
+    <h2 th:text="'Hello, ' + ${name} + '!'" />
+
+    <br>
+    <p th:text="'Hello, ' + ${name} + '!'"/>
+</div>

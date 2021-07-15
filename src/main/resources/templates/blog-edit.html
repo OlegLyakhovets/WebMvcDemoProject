@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Site BLOG</title>
+    <title>Editing Article</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
 </head>
@@ -9,16 +9,15 @@
 
 <header th:insert="blocks/header :: header"></header>
 
-<div class="container mt-5">
-    <h1>Site blog</h1>
-    <div class="alert alert-info mt-2">
-        <h3 th:text="${title}"/>
-        <p th:text="${anons}"/>
-        <p th:text="${fulltext}"/>
-        <p><b>Views: </b> <span th:text="${views}"/></p>
-        <a th:href="'' + ${id} + '/edit'" class="btn btn-warning">Edit</a>
-        <a th:href="'' + ${id} + '/delete'" class="btn btn-warning">Delete</a>
-    </div>
+<div class="container mt-5 mb-5">
+    <h1>Editing article</h1>
+    <form method="post">
+        <input type="text" th:value="${title}" name="title" placeholder="enter title" class="form-control"><br>
+        <input type="text" th:value="${anons}" name="anons" placeholder="enter anons" class="form-control"><br>
+        <textarea name="full_text" placeholder="enter text of article" class="form-control" th:text="${fulltext}"/><br>
+        <button type="submit" class="btn btn-success">Update article</button>
+    </form>
+
 </div>
 
 

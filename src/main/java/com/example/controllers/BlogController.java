@@ -48,11 +48,13 @@ public class BlogController {
     @GetMapping("/blog/{id}")
     public String blogPage(@RequestParam(name="name", defaultValue = "User")String name,
                            @PathVariable(name = "id") Long id, Model model){
+        if(!postRepository.existsById(id)) return "redirect:/";
         Optional<Post> posts = postRepository.findById(id);
         String title = postRepository.findById(id).get().getTitle();
         String anons = postRepository.findById(id).get().getAnons();
         String fullText = postRepository.findById(id).get().getFullText();
         int views = postRepository.findById(id).get().getViews();
+        model.addAttribute("id", id);
         model.addAttribute("title", title);
         model.addAttribute("anons", anons);
         model.addAttribute("fulltext", fullText);
@@ -61,6 +63,39 @@ public class BlogController {
         return "blog-page";
     }
 
+    @GetMapping("/blog/{id}/edit")
+    public String blogPageEdit(@RequestParam(name="name", defaultValue = "User")String name,
+                           @PathVariable(name = "id") Long id, Model model){
+        if(!postRepository.existsById(id)) return "redirect:/";
+        Optional<Post> posts = postRepository.findById(id);
+        String title = postRepository.findById(id).get().getTitle();
+        String anons = postRepository.findById(id).get().getAnons();
+        String fullText = postRepository.findById(id).get().getFullText();
+        int views = postRepository.findById(id).get().getViews();
+        model.addAttribute("id", id);
+        model.addAttribute("title", title);
+        model.addAttribute("anons", anons);
+        model.addAttribute("fulltext", fullText);
+        model.addAttribute("views", views);
+        model.addAttribute("name", name);
+        return "blog-edit";
+    }
+
+    @PostMapping("/blog/{id}/edit")
+    public String editPost(@PathVariable(name = "id") Long id,
+                           @RequestParam String title, @RequestParam String anons,
+                            @RequestParam String full_text,
+                            @RequestParam (name="name", defaultValue="User")
+                                    String name, Model model){
+        model.addAttribute("name", name);
+        Post post = postRepository.findById(id).orElseThrow();
+        post.setTitle(title);
+        post.setAnons(anons);
+        post.setFullText(full_text);
+        post.setViews(random.nextInt(100));
+        postRepository.save(post);
+        return "redirect:/blog";
+    }
     @GetMapping("/all")
     public @ResponseBody Iterable<Post> getAll(){
 

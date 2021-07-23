@@ -14,9 +14,13 @@ import java.util.Random;
 @RequestMapping("/")
 public class BlogController {
 
-    @Autowired
     private PostRepository postRepository;
     Random random = new Random();
+
+    @Autowired
+    public void setPostRepository(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
 
     @GetMapping("/blog")
     public String blogMain(@RequestParam(name="name", defaultValue = "User")String name, Model model){
@@ -104,7 +108,7 @@ public class BlogController {
         model.addAttribute("name", name);
         Post post = postRepository.findById(id).orElseThrow();
         postRepository.delete(post);
-        return "redirect:/blog";
+            return "redirect:/blog";
     }
     @GetMapping("/all")
     public @ResponseBody Iterable<Post> getAll(){
